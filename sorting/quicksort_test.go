@@ -2,17 +2,15 @@ package sorting
 
 import "testing"
 
+type Entry struct{
+	input []int
+	expected []int
+}
+
+
 
 func TestQuickSort(t *testing.T){
-	data := []struct{
-		input []int
-		expected []int
-	}{
-		{[]int{}, []int{}},
-		{[]int{1}, []int{1}},
-		{[]int{1,7,3,8,9}, []int{1,3,7,8,9}},
-		{[]int{1,2,3,4,5}, []int{1,2,3,4,5}},
-	}
+	data := getTestData()
 	for _, v := range data{
 		output := QuickSort(v.input)
 		if !sameOrder(output, v.expected){
@@ -22,15 +20,7 @@ func TestQuickSort(t *testing.T){
 }
 
 func TestQuickSortInPlace(t *testing.T){
-	data := []struct{
-		input []int
-		expected []int
-	}{
-		{[]int{}, []int{}},
-		{[]int{1}, []int{1}},
-		{[]int{1,7,3,8,9}, []int{1,3,7,8,9}},
-		{[]int{1,2,3,4,5}, []int{1,2,3,4,5}},
-	}
+	data := getTestData()
 	for _, v := range data{
 		QuickSortInPlace(v.input)
 		if !sameOrder(v.input, v.expected){
@@ -39,6 +29,14 @@ func TestQuickSortInPlace(t *testing.T){
 	}
 }
 
+func getTestData() []Entry{
+	return []Entry{
+		{[]int{}, []int{}},
+		{[]int{1}, []int{1}},
+		{[]int{1,7,3,8,9}, []int{1,3,7,8,9}},
+		{[]int{1,2,3,4,5}, []int{1,2,3,4,5}},
+	}
+}
 
 func sameOrder(arr1 []int, arr2 []int) bool{
 	if len(arr1)  != len(arr2){

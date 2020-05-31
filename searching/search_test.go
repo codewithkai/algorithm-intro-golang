@@ -6,18 +6,13 @@ import (
 	"time"
 )
 
-type SearchFunc func(int, []int) int
+type Entry struct {
+	target  int
+	expectedIndex int
+}
 
 func TestSearch(t *testing.T) {
-	arr := []int{1,3,5,7,9}
-	data := []struct {
-		target  int
-		expectedIndex int
-	}{
-		{1, 0},
-		{3, 1},
-		{8,-1},
-	}
+	arr, data := getTestData()
 	for _, v := range data {
 		foundIndex := Search(v.target, arr)
 		if foundIndex != v.expectedIndex {
@@ -28,15 +23,7 @@ func TestSearch(t *testing.T) {
 }
 
 func TestBinarySearch(t *testing.T) {
-	arr := []int{1,3,5,7,9}
-	data := []struct {
-		target  int
-		expectedIndex int
-	}{
-		{1, 0},
-		{3, 1},
-		{8,-1},
-	}
+	arr, data := getTestData()
 	for _, v := range data {
 		foundIndex := BinarySearch(v.target, arr)
 		if foundIndex != v.expectedIndex {
@@ -44,8 +31,16 @@ func TestBinarySearch(t *testing.T) {
 				v.target, v.expectedIndex, foundIndex)
 		}
 	}
+}
 
-
+func getTestData() ([]int, []Entry){
+	arr := []int{1,3,5,7,9}
+	entries := []Entry{
+		{1, 0},
+		{3, 1},
+		{8,-1},
+	}
+	return arr, entries
 }
 
 func TestLargeInput(t *testing.T){
