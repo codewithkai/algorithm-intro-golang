@@ -2,8 +2,6 @@ package searching
 
 import (
 	"math/rand"
-	"reflect"
-	"runtime"
 	"testing"
 	"time"
 )
@@ -20,17 +18,34 @@ func TestSearch(t *testing.T) {
 		{3, 1},
 		{8,-1},
 	}
-	functions := []SearchFunc{Search, BinarySearch, BinarySearch2}
-	for _, f := range functions{
-		for _, v := range data {
-			functionName := runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()
-			foundIndex := f(v.target, arr)
-			if foundIndex != v.expectedIndex {
-				t.Errorf("search func %s target %d index expected %d got %d",
-					functionName,  v.target, v.expectedIndex, foundIndex)
-			}
+	for _, v := range data {
+		foundIndex := Search(v.target, arr)
+		if foundIndex != v.expectedIndex {
+			t.Errorf("target %d index expected %d got %d",
+				v.target, v.expectedIndex, foundIndex)
 		}
 	}
+}
+
+func TestBinarySearch(t *testing.T) {
+	arr := []int{1,3,5,7,9}
+	data := []struct {
+		target  int
+		expectedIndex int
+	}{
+		{1, 0},
+		{3, 1},
+		{8,-1},
+	}
+	for _, v := range data {
+		foundIndex := BinarySearch(v.target, arr)
+		if foundIndex != v.expectedIndex {
+			t.Errorf("target %d index expected %d got %d",
+				v.target, v.expectedIndex, foundIndex)
+		}
+	}
+
+
 }
 
 func TestLargeInput(t *testing.T){
@@ -39,13 +54,18 @@ func TestLargeInput(t *testing.T){
 	for i:=0; i< inputSize; i++{
 		arr[i] = rand.Intn(inputSize)
 	}
-	functions := []SearchFunc{Search, BinarySearch, BinarySearch2}
-	for _, f := range functions{
-		functionName := runtime.FuncForPC(reflect.ValueOf(f).Pointer()).Name()
-		now := time.Now()
-		f(rand.Intn(inputSize), arr)
-		duration := time.Since(now)
-		t.Logf("func %s duration %v", functionName,duration)
-	}
+
+	//Search
+	now := time.Now()
+	Search(rand.Intn(inputSize), arr)
+	duration := time.Since(now)
+	t.Logf("Search duration %v",duration)
+
+
+	//Binary Search
+	now = time.Now()
+	BinarySearch(rand.Intn(inputSize), arr)
+	duration = time.Since(now)
+	t.Logf("BinarySearch duration %v",duration)
 }
 

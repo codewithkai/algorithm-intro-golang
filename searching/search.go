@@ -1,9 +1,5 @@
 package searching
 
-import (
-	"sort"
-)
-
 func Search(target int, arr []int) int {
 	for i, v := range arr {
 		if v == target {
@@ -29,11 +25,3 @@ func BinarySearch(target int, arr []int) int {
 	return -1
 }
 
-//use sort package
-func BinarySearch2(target int, arr []int) int {
-	i := sort.Search(len(arr), func(i int) bool { return arr[i] >= target })
-	if i < len(arr) && arr[i] == target {
-		return i
-	}
-	return -1
-}
