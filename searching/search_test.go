@@ -1,4 +1,4 @@
-package search
+package searching
 
 import (
 	"math/rand"
