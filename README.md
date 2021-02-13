@@ -1,8 +1,5 @@
 # 数据结构与算法入门Golang版
 
-### 关注微信公众号“耶加时间”
-![耶加时间](./images/qrcode.jpg)
-
 ## 介绍
 这门课选择的是最基本也是最常用的数据结构和算法，灵感来自 `The Practice of Programming` 和 `Cracking the Code Interview 6th Edition`。
 新手在开始刷leetcode之前，最好先复习一下这些基础的数据结构和算法。
